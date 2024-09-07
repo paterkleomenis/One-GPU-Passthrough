@@ -65,14 +65,22 @@ To begin setting up GPU passthrough:
 - **For Fedora:**:
    ```bash
    sudo dnf install qemu-kvm libvirt virt-manager virt-install ovmf
-
+  ```
    
 #### Setting Up the Virtual Machine
 
 **Enable and Start libvirt Services**:
+```bash
 sudo systemctl enable libvirtd
 sudo systemctl start libvirtd
-
+```
 **Verify that Your User Is in the libvirt Group Ensure your user is in the libvirt group to have the necessary permissions to manage VMs:**:
+```bash
+sudo usermod -aG libvirt $(whoami)
+newgrp libvirt
+```
+
+
+
 
 

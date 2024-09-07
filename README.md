@@ -371,3 +371,10 @@ By following these steps, you'll have your virtual machine set up and ready for 
   
       
 ![Screenshot from 2024-09-07 14-30-04](https://github.com/user-attachments/assets/2bb46be2-23eb-4229-a65d-873e5e37aa9b)
+
+
+- The same goes for the modules. If you have amd or intel find those modules for your system and replace them.
+
+![Screenshot from 2024-09-07 14-34-03](https://github.com/user-attachments/assets/0852a2ad-6d45-4fc3-a631-613780cd8fc9)
+
+

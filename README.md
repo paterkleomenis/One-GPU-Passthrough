@@ -47,11 +47,6 @@ To begin setting up GPU passthrough:
      ```
      If IOMMU is supported, you should see relevant messages in the output.
 
-   - **GPU Compatibility**: Make sure you have two GPUs:
-     1. One for your host (the system running the virtualization software).
-     2. One for the guest (the system in the virtual machine).
-     You can also use an integrated GPU for the host and a dedicated one for the guest.
-
 ### 2. **Enable Virtualization in BIOS/UEFI**
    - Reboot your system and enter BIOS/UEFI by pressing a designated key (usually `Delete`, `F2`, or `Esc`).
    - Locate the virtualization settings. This could be under a tab like `Advanced` or `CPU Configuration`.

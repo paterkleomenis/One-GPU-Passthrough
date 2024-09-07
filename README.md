@@ -222,6 +222,18 @@ By following these steps, you'll have your virtual machine set up and ready for 
 
     ![Screenshot from 2024-09-07 13-21-33](https://github.com/user-attachments/assets/8d380e73-878b-4b3d-a601-9a4609346aff)
 
-    - Select this Disk and then execute and install this file
+    - Select this Disk and then execute and install this file.
 
     ![Screenshot from 2024-09-07 13-23-56](https://github.com/user-attachments/assets/bd481f9c-6d0a-44ff-9b72-628e7a1f859b)
+
+    - Shut Down the System.
+      
+13. **Enable XML**
+    - Go to **Edit**.
+    - Click **Preferences**.
+    - Click **Enable XML editting**.
+
+14. **Change the XML For SATA**
+    - Change bus="sata" to bus="virtio"
+    - Change type="drive" to type="pci"
+![Screenshot from 2024-09-07 13-31-49](https://github.com/user-attachments/assets/3107a02a-c9c8-472f-abcb-26596c231bd8)

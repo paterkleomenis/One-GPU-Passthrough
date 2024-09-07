@@ -1,4 +1,66 @@
-GPU Passthrough on Linux
-Overview
-This repository provides a comprehensive guide to setting up GPU passthrough on Linux systems. GPU passthrough allows a virtual machine (VM) to directly access the host's GPU, enabling high-performance graphics rendering in a VM environment. This is particularly useful for tasks like gaming, 3D rendering, and running GPU-intensive applications in a virtualized setup.
+# GPU Passthrough on Linux
 
+## Overview
+
+This repository provides a comprehensive guide to setting up **GPU passthrough** on Linux systems. GPU passthrough allows a virtual machine (VM) to directly access the host's GPU, enabling high-performance graphics rendering in a VM environment. This is particularly useful for tasks like gaming, 3D rendering, and running GPU-intensive applications in a virtualized setup.
+
+## Contents
+
+- **Step-by-Step Setup Guides**
+  - Detailed instructions for various Linux distributions
+  - Configuration files and scripts
+- **Troubleshooting**
+  - Common issues and solutions
+  - Tips for hardware compatibility
+- **Performance Optimization**
+  - Tweaks to maximize GPU performance
+  - Best practices for virtualization settings
+- **Resources**
+  - Links to useful tools and external tutorials
+  - Community forums and support channels
+
+## Requirements
+
+- **Hardware**
+  - A CPU with virtualization support (Intel VT-x/AMD-V)
+  - Motherboard and CPU support for IOMMU (Intel VT-d/AMD-Vi)
+  - A dedicated GPU for the VM
+  - Separate GPU for the host (optional but recommended)
+- **Software**
+  - Linux operating system with a recent kernel
+  - QEMU/KVM or other virtualization software
+  - Necessary drivers and firmware updates
+
+## Getting Started
+
+To begin setting up GPU passthrough:
+
+1. **Check Hardware Compatibility**
+   - Ensure your CPU and motherboard support virtualization and IOMMU.
+   - Verify that your GPUs are compatible and properly seated.
+2. **Enable Virtualization in BIOS/UEFI**
+   - Turn on VT-x/VT-d or AMD-V/AMD-Vi settings.
+3. **Configure the Host System**
+   - Install necessary packages and drivers.
+   - Update grub configuration for IOMMU.
+4. **Set Up the VM**
+   - Install your preferred virtualization software.
+   - Configure the VM to use GPU passthrough.
+5. **Install Guest OS and Drivers**
+   - Install the operating system inside the VM.
+   - Install GPU drivers and verify functionality.
+
+For detailed instructions, please refer to the [Setup Guides](./guides/README.md).
+
+## Contributing
+
+Contributions are welcome! Please read the [contribution guidelines](./CONTRIBUTING.md) first.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+
+## Acknowledgments
+
+- Thanks to the open-source community for invaluable resources.
+- Special mentions to contributors and testers.

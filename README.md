@@ -69,6 +69,42 @@ To enable IOMMU, you first need to identify which bootloader your system uses. C
      ls /boot/loader/entries/
      ```
 
+### Enable IOMMU in Bootloader
+
+To enable IOMMU, you first need to identify which bootloader your system uses. Common bootloaders include GRUB and systemd-boot. Follow the steps below to determine your bootloader and configure IOMMU accordingly.
+
+#### Determine Your Bootloader
+
+1. **For Ubuntu/Debian-based Distributions**:
+   - **Check GRUB**:
+     ```bash
+     sudo test -e /boot/grub/grub.cfg && echo "GRUB detected"
+     ```
+   - **Check systemd-boot**:
+     ```bash
+     sudo test -e /boot/loader/loader.conf && echo "systemd-boot detected"
+     ```
+
+2. **For Arch Linux**:
+   - **Check GRUB**:
+     ```bash
+     sudo test -e /boot/grub/grub.cfg && echo "GRUB detected"
+     ```
+   - **Check systemd-boot**:
+     ```bash
+     sudo test -e /boot/loader/loader.conf && echo "systemd-boot detected"
+     ```
+
+3. **For Fedora**:
+   - **Check GRUB**:
+     ```bash
+     sudo test -e /boot/grub2/grub.cfg && echo "GRUB detected"
+     ```
+   - **Check systemd-boot**:
+     ```bash
+     sudo test -e /boot/loader/loader.conf && echo "systemd-boot detected"
+     ```
+
 #### Enable IOMMU in GRUB
 
 1. **Edit the GRUB Configuration**:
@@ -88,13 +124,17 @@ To enable IOMMU, you first need to identify which bootloader your system uses. C
 
 2. **Update GRUB**:
    - Save the changes and update GRUB:
-     - On Ubuntu/Debian:
+     - On Ubuntu/Debian-based Distributions:
        ```bash
        sudo update-grub
        ```
      - On Arch Linux:
        ```bash
        sudo grub-mkconfig -o /boot/grub/grub.cfg
+       ```
+     - On Fedora:
+       ```bash
+       sudo grub2-mkconfig -o /boot/grub2/grub.cfg
        ```
 
 3. **Reboot Your System**:

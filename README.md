@@ -382,4 +382,7 @@ By following these steps, you'll have your virtual machine set up and ready for 
 
 ![Screenshot from 2024-09-07 14-41-43](https://github.com/user-attachments/assets/460c694d-7604-4fdc-9da7-d8f72b4f2b79)
 
+**Single GPU Passthrough**
 
+- When start your VM you will not have any output because your graphics card will be connected to the VM.
+- If you have windows in your VM you can just wait until they drivers will be automatically downloaded or you can connect from an other device to your VM with VNC.

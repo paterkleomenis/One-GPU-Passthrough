@@ -245,7 +245,8 @@ By following these steps, you'll have your virtual machine set up and ready for 
    
     ![Screenshot from 2024-09-07 13-38-43](https://github.com/user-attachments/assets/24d333cf-5e6a-4eae-a72e-d90476301d91)
 
-16. **Setting Up Libvirt hooks**
+
+17. **Setting Up Libvirt hooks**
     - Create /etc/libvirt/hooks
       ```bash
       sudo mkdir -p /etc/libvirt/hooks
@@ -283,11 +284,17 @@ By following these steps, you'll have your virtual machine set up and ready for 
       # Avoid a Race condition by waiting 2 seconds. This can be calibrated to be shorter or longer if required for your system
       sleep 2
 
-      # Unbind the GPU from display driver
+      # Unbind the GPU from display driver 
       virsh nodedev-detach pci_0000_01_00_0  
       virsh nodedev-detach pci_0000_01_00_1
-      virsh nodedev-detach pci_0000_00_1f_3
 
       # Load VFIO Kernel Module
       modprobe vfio-pci
       ```
+
+      **Save and make it Executable**
+      ```bash
+      sudo chmod +x /etc/libvirt/hooks/qemu.d/{VMName}/prepare/begin/start.sh
+      ```
+        
+  

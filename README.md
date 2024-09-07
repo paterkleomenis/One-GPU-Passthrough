@@ -278,6 +278,7 @@ By following these steps, you'll have your virtual machine set up and ready for 
       ## Start Script ##
 
       ```bash
+      #!/bin/bash
       # Helpful to read output when debugging 
       set -x
 
@@ -329,6 +330,7 @@ By following these steps, you'll have your virtual machine set up and ready for 
       ## End Script ##
 
       ```bash
+      #!/bin/bash
       echo "efi-framebuffer.0" > /sys/bus/platform/drivers/efi-framebuffer/bind
       set -x
 

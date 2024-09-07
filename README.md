@@ -360,7 +360,7 @@ By following these steps, you'll have your virtual machine set up and ready for 
       ```
 
 **Customize the filess**
--Change the marked numbers with yours
+- Change the marked numbers with yours
 ![Screenshot from 2024-09-07 14-25-11](https://github.com/user-attachments/assets/fec73398-66f0-4bdf-b426-07d69b311375)
 
 - To find those numbers for your specific system type this command
@@ -376,5 +376,10 @@ By following these steps, you'll have your virtual machine set up and ready for 
 - The same goes for the modules. If you have amd or intel find those modules for your system and replace them.
 
 ![Screenshot from 2024-09-07 14-34-03](https://github.com/user-attachments/assets/0852a2ad-6d45-4fc3-a631-613780cd8fc9)
+
+**Add the Graphics Card to the VM**
+- Click on Add Hardware and select your **Graphics Card**
+
+![Screenshot from 2024-09-07 14-41-43](https://github.com/user-attachments/assets/460c694d-7604-4fdc-9da7-d8f72b4f2b79)
 
 

@@ -68,23 +68,12 @@ To begin setting up GPU passthrough:
 
    
 #### Setting Up the Virtual Machine
-**Enable and Start libvirt Services**
+**Enable and Start libvirt Services**:
   ```bash
 sudo systemctl enable libvirtd
 sudo systemctl start libvirtd
 
+**Verify that Your User Is in the libvirt Group Ensure your user is in the libvirt group to have the necessary permissions to manage VMs:**:
+```bash
 
-For detailed instructions, please refer to the [Setup Guides](./guides/README.md).
 
-## Contributing
-
-Contributions are welcome! Please read the [contribution guidelines](./CONTRIBUTING.md) first.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
-
-## Acknowledgments
-
-- Thanks to the open-source community for invaluable resources.
-- Special mentions to contributors and testers.

@@ -35,20 +35,37 @@ This repository provides a comprehensive guide to setting up **GPU passthrough**
 
 To begin setting up GPU passthrough:
 
-1. **Check Hardware Compatibility**
-   - Ensure your CPU and motherboard support virtualization and IOMMU.
-   - Verify that your GPUs are compatible and properly seated.
-2. **Enable Virtualization in BIOS/UEFI**
-   - Turn on VT-x/VT-d or AMD-V/AMD-Vi settings.
-3. **Configure the Host System**
-   - Install necessary packages and drivers.
-   - Update grub configuration for IOMMU.
-4. **Set Up the VM**
-   - Install your preferred virtualization software.
-   - Configure the VM to use GPU passthrough.
-5. **Install Guest OS and Drivers**
-   - Install the operating system inside the VM.
-   - Install GPU drivers and verify functionality.
+### 1. **Check Hardware Compatibility**
+   - **Virtualization Support**: Verify that your CPU supports virtualization (Intel VT-x/AMD-V). You can check this by running:
+     ```bash
+     egrep -o '(vmx|svm)' /proc/cpuinfo
+     ```
+     If the output includes `vmx` (for Intel) or `svm` (for AMD), your CPU supports virtualization.
+   - **IOMMU Support**: Your motherboard and CPU must support IOMMU (Intel VT-d/AMD-Vi). To verify, run the following command:
+     ```bash
+     dmesg | grep -e DMAR -e IOMMU
+     ```
+     If IOMMU is supported, you should see relevant messages in the output.
+
+   - **GPU Compatibility**: Make sure you have two GPUs:
+     1. One for your host (the system running the virtualization software).
+     2. One for the guest (the system in the virtual machine).
+     You can also use an integrated GPU for the host and a dedicated one for the guest.
+
+### 2. **Enable Virtualization in BIOS/UEFI**
+   - Reboot your system and enter BIOS/UEFI by pressing a designated key (usually `Delete`, `F2`, or `Esc`).
+   - Locate the virtualization settings. This could be under a tab like `Advanced` or `CPU Configuration`.
+   - Enable **Intel VT-x** or **AMD-V**, and also **Intel VT-d** or **AMD-Vi** for IOMMU.
+   - Save the settings and reboot into your operating system.
+
+### 3. **Configure the Host System**
+
+#### Install Necessary Packages
+- **For Ubuntu/Debian**:
+   ```bash
+   sudo apt update
+   sudo apt install qemu-kvm libvirt-clients libvirt-daemon-system virt-manager ovmf
+
 
 For detailed instructions, please refer to the [Setup Guides](./guides/README.md).
 

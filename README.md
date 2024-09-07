@@ -58,47 +58,9 @@ To begin setting up GPU passthrough:
 To enable IOMMU, you first need to identify which bootloader your system uses. Common bootloaders include GRUB and systemd-boot. Follow the steps below to determine your bootloader and configure IOMMU accordingly.
 
 #### Determine Your Bootloader
-
-1. **Check the Bootloader**:
-   - For **GRUB**: Run the following command to check if GRUB is installed:
-     ```bash
-     dpkg -l | grep grub
-     ```
-   - For **systemd-boot**: Check if the systemd-boot loader is installed:
-     ```bash
-     ls /boot/loader/entries/
-     ```
-
-### Enable IOMMU in Bootloader
-
-To enable IOMMU, you first need to identify which bootloader your system uses. Common bootloaders include GRUB and systemd-boot. Follow the steps below to determine your bootloader and configure IOMMU accordingly.
-
-#### Determine Your Bootloader
-
-1. **For Ubuntu/Debian-based Distributions**:
    - **Check GRUB**:
      ```bash
      sudo test -e /boot/grub/grub.cfg && echo "GRUB detected"
-     ```
-   - **Check systemd-boot**:
-     ```bash
-     sudo test -e /boot/loader/loader.conf && echo "systemd-boot detected"
-     ```
-
-2. **For Arch Linux**:
-   - **Check GRUB**:
-     ```bash
-     sudo test -e /boot/grub/grub.cfg && echo "GRUB detected"
-     ```
-   - **Check systemd-boot**:
-     ```bash
-     sudo test -e /boot/loader/loader.conf && echo "systemd-boot detected"
-     ```
-
-3. **For Fedora**:
-   - **Check GRUB**:
-     ```bash
-     sudo test -e /boot/grub2/grub.cfg && echo "GRUB detected"
      ```
    - **Check systemd-boot**:
      ```bash
@@ -115,11 +77,11 @@ To enable IOMMU, you first need to identify which bootloader your system uses. C
    - Add the appropriate IOMMU settings to the `GRUB_CMDLINE_LINUX_DEFAULT` line:
      - For **Intel** CPUs:
        ```bash
-       GRUB_CMDLINE_LINUX_DEFAULT="quiet splash intel_iommu=on"
+       GRUB_CMDLINE_LINUX_DEFAULT="quiet splash .... intel_iommu=on"
        ```
      - For **AMD** CPUs:
        ```bash
-       GRUB_CMDLINE_LINUX_DEFAULT="quiet splash amd_iommu=on"
+       GRUB_CMDLINE_LINUX_DEFAULT="quiet splash .... amd_iommu=on"
        ```
 
 2. **Update GRUB**:
@@ -154,7 +116,7 @@ To enable IOMMU, you first need to identify which bootloader your system uses. C
 1. **Edit the systemd-boot Configuration**:
    - Open the boot loader configuration file:
      ```bash
-     sudo nano /boot/loader/entries/your-entry.conf
+     sudo nano /boot/loader/entries/your-entry.conf (your-entry.conf has other name in each distro)
      ```
    - Add the IOMMU settings to the `options` line:
      - For **Intel** CPUs:

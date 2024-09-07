@@ -234,6 +234,7 @@ By following these steps, you'll have your virtual machine set up and ready for 
     - Click **Enable XML editting**.
 
 14. **Change the XML For SATA**
-    - Change bus="sata" to bus="virtio"
-    - Change type="drive" to type="pci"
+    - Change **bus="sata"** to **bus="virtio"**
+    - Change **type="drive"** to **type="pci"**
+      
 ![Screenshot from 2024-09-07 13-31-49](https://github.com/user-attachments/assets/3107a02a-c9c8-472f-abcb-26596c231bd8)

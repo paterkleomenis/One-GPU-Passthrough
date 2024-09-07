@@ -61,7 +61,7 @@ To begin setting up GPU passthrough:
    sudo apt install qemu-kvm libvirt-clients libvirt-daemon-system virt-manager ovmf
 - **For Arch Linux:**:
    ```bash
-  sudo pacman -S qemu libvirt virt-manager ovmf
+  sudo pacman -S qemu virt-manager virt-viewer dnsmasq vde2 bridge-utils openbsd-netcat
 - **For Fedora:**:
    ```bash
    sudo dnf install qemu-kvm libvirt virt-manager virt-install ovmf

@@ -58,7 +58,6 @@ To begin setting up GPU passthrough:
 #### Install Necessary Packages
 - **For Ubuntu/Debian**:
    ```bash
-   sudo apt update
    sudo apt install qemu-kvm libvirt-clients libvirt-daemon-system virt-manager ovmf
 - **For Arch Linux:**:
    ```bash

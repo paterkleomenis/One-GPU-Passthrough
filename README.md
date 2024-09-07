@@ -358,3 +358,16 @@ By following these steps, you'll have your virtual machine set up and ready for 
       # Restart Display Manager
       systemctl start display-manager.service
       ```
+
+**Customize the filess**
+-Change the marked numbers with yours
+![Screenshot from 2024-09-07 14-25-11](https://github.com/user-attachments/assets/fec73398-66f0-4bdf-b426-07d69b311375)
+
+- To find those numbers for your specific system type this command
+  ```bash
+  lspci
+  ```
+- In my case those are the numbers (You probaly have different numbers or even more that two PCI's)
+  
+      
+![Screenshot from 2024-09-07 14-30-04](https://github.com/user-attachments/assets/2bb46be2-23eb-4229-a65d-873e5e37aa9b)

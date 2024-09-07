@@ -53,6 +53,92 @@ To begin setting up GPU passthrough:
    - Enable **Intel VT-x** or **AMD-V**, and also **Intel VT-d** or **AMD-Vi** for IOMMU.
    - Save the settings and reboot into your operating system.
 
+### Enable IOMMU in Bootloader
+
+To enable IOMMU, you first need to identify which bootloader your system uses. Common bootloaders include GRUB and systemd-boot. Follow the steps below to determine your bootloader and configure IOMMU accordingly.
+
+#### Determine Your Bootloader
+
+1. **Check the Bootloader**:
+   - For **GRUB**: Run the following command to check if GRUB is installed:
+     ```bash
+     dpkg -l | grep grub
+     ```
+   - For **systemd-boot**: Check if the systemd-boot loader is installed:
+     ```bash
+     ls /boot/loader/entries/
+     ```
+
+#### Enable IOMMU in GRUB
+
+1. **Edit the GRUB Configuration**:
+   - Open the GRUB configuration file for editing:
+     ```bash
+     sudo nano /etc/default/grub
+     ```
+   - Add the appropriate IOMMU settings to the `GRUB_CMDLINE_LINUX_DEFAULT` line:
+     - For **Intel** CPUs:
+       ```bash
+       GRUB_CMDLINE_LINUX_DEFAULT="quiet splash intel_iommu=on"
+       ```
+     - For **AMD** CPUs:
+       ```bash
+       GRUB_CMDLINE_LINUX_DEFAULT="quiet splash amd_iommu=on"
+       ```
+
+2. **Update GRUB**:
+   - Save the changes and update GRUB:
+     - On Ubuntu/Debian:
+       ```bash
+       sudo update-grub
+       ```
+     - On Arch Linux:
+       ```bash
+       sudo grub-mkconfig -o /boot/grub/grub.cfg
+       ```
+
+3. **Reboot Your System**:
+   - Apply the changes by rebooting:
+     ```bash
+     sudo reboot
+     ```
+
+4. **Verify IOMMU Activation**:
+   - After rebooting, check if IOMMU is enabled:
+     ```bash
+     dmesg | grep -e DMAR -e IOMMU
+     ```
+
+#### Enable IOMMU in systemd-boot
+
+1. **Edit the systemd-boot Configuration**:
+   - Open the boot loader configuration file:
+     ```bash
+     sudo nano /boot/loader/entries/your-entry.conf
+     ```
+   - Add the IOMMU settings to the `options` line:
+     - For **Intel** CPUs:
+       ```bash
+       options intel_iommu=on
+       ```
+     - For **AMD** CPUs:
+       ```bash
+       options amd_iommu=on
+       ```
+
+2. **Reboot Your System**:
+   - Apply the changes by rebooting:
+     ```bash
+     sudo reboot
+     ```
+
+3. **Verify IOMMU Activation**:
+   - After rebooting, check if IOMMU is enabled:
+     ```bash
+     dmesg | grep -e DMAR -e IOMMU
+     ```
+
+
 ### 3. **Configure the Host System**
 
 #### Install Necessary Packages
@@ -82,45 +168,41 @@ newgrp libvirt
 ### Setting Up the Virtual Machine Using Virt-Manager
 
 1. **Open Virt-Manager**
-   - Launch **Virt-Manager** from your application menu or by searching for it. If it's not installed, install it using your package manager.
+   - Launch **Virt-Manager** from your application menu or by searching for it.
 
 2. **Create a New Virtual Machine**
-   - Click the **“Create a new virtual machine”** button (a computer icon with a "+" symbol).
+   - Click the **“Create a new virtual machine”** button.
 
 3. **Choose Installation Media**
    - Select **“Local install media (ISO image or CDROM)”** if you have an ISO file.
    - Click **“Forward”**.
-   - Browse to and select your ISO file, then click **“Forward”**.
+   - Browse to and select your ISO file, then click **“Forward”**. (if it doesn't go forward **unselect** the Automatically detect from the installation media/source and write it on your own)
 
-4. **Select Operating System**
-   - Virt-Manager will attempt to detect the OS type from the ISO. Confirm the OS type or manually select it from the dropdown.
-   - Click **“Forward”**.
-
-5. **Allocate Resources**
+4. **Allocate Resources**
    - **Memory**: Allocate RAM (e.g., 8 GB).
    - **CPUs**: Allocate CPU cores (e.g., 4 cores).
    - Click **“Forward”**.
 
-6. **Configure Storage**
+5. **Configure Storage**
    - **Create a new virtual disk**: Set the disk size (e.g., 40 GB) and format (e.g., QCOW2).
    - Click **“Forward”**.
 
-7. **Set Up Networking**
+6. **Set Up Networking**
    - Choose the network configuration:
      - **Default**: Use NAT to share the host’s IP address.
      - **Bridged**: If you need a separate IP address for the VM.
    - Click **“Forward”**.
 
-8. **Customize Configuration (Optional)**
+7. **Customize Configuration (Optional)**
    - Check **“Customize configuration before install”** to adjust additional settings.
    - Click **“Finish”** to open the configuration window.
 
-9. **Configure GPU Passthrough (Optional)**
+8. **Configure GPU Passthrough (Optional)**
    - In the configuration window, go to the **Firmware** section and select **UEFI (OVMF)** if you are installing an OS that supports UEFI.
    - Go to the **Add Hardware** section, select **PCI Host Device**, and choose your GPU from the list.
    - Apply the changes.
 
-10. **Begin Installation**
+9. **Begin Installation**
     - Click **“Begin Installation”** to start the virtual machine and follow the installation prompts to set up your operating system.
 
 By following these steps, you'll have your virtual machine set up and ready for use with Virt-Manager.

@@ -79,8 +79,51 @@ sudo systemctl start libvirtd
 sudo usermod -aG libvirt $(whoami)
 newgrp libvirt
 ```
+### Setting Up the Virtual Machine Using Virt-Manager
 
+1. **Open Virt-Manager**
+   - Launch **Virt-Manager** from your application menu or by searching for it. If it's not installed, install it using your package manager.
 
+2. **Create a New Virtual Machine**
+   - Click the **“Create a new virtual machine”** button (a computer icon with a "+" symbol).
+
+3. **Choose Installation Media**
+   - Select **“Local install media (ISO image or CDROM)”** if you have an ISO file.
+   - Click **“Forward”**.
+   - Browse to and select your ISO file, then click **“Forward”**.
+
+4. **Select Operating System**
+   - Virt-Manager will attempt to detect the OS type from the ISO. Confirm the OS type or manually select it from the dropdown.
+   - Click **“Forward”**.
+
+5. **Allocate Resources**
+   - **Memory**: Allocate RAM (e.g., 8 GB).
+   - **CPUs**: Allocate CPU cores (e.g., 4 cores).
+   - Click **“Forward”**.
+
+6. **Configure Storage**
+   - **Create a new virtual disk**: Set the disk size (e.g., 40 GB) and format (e.g., QCOW2).
+   - Click **“Forward”**.
+
+7. **Set Up Networking**
+   - Choose the network configuration:
+     - **Default**: Use NAT to share the host’s IP address.
+     - **Bridged**: If you need a separate IP address for the VM.
+   - Click **“Forward”**.
+
+8. **Customize Configuration (Optional)**
+   - Check **“Customize configuration before install”** to adjust additional settings.
+   - Click **“Finish”** to open the configuration window.
+
+9. **Configure GPU Passthrough (Optional)**
+   - In the configuration window, go to the **Firmware** section and select **UEFI (OVMF)** if you are installing an OS that supports UEFI.
+   - Go to the **Add Hardware** section, select **PCI Host Device**, and choose your GPU from the list.
+   - Apply the changes.
+
+10. **Begin Installation**
+    - Click **“Begin Installation”** to start the virtual machine and follow the installation prompts to set up your operating system.
+
+By following these steps, you'll have your virtual machine set up and ready for use with Virt-Manager.
 
 
 

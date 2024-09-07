@@ -208,8 +208,10 @@ newgrp libvirt
     Download Virtio ISO from here **https://github.com/virtio-win/virtio-win-pkg-scripts/blob/master/README.md**
     - Click **Add Hardware**.
     - Click **Storage**.
-    - Click **Select or create custom storage**
-    - Click **Manage**
+    - Click **Select or create custom storage**.
+    - Click **Manage** and then select Virtio ISO file.
+    - Select in Device Type **CDROM device** and in BUS Type **SATA**.
+    - Click **Finish**.
 
 11. **Begin Installation**
     - Click **“Begin Installation”** to start the virtual machine and follow the installation prompts to set up your operating system.

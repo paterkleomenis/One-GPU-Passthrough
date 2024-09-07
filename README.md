@@ -218,5 +218,6 @@ newgrp libvirt
 
 By following these steps, you'll have your virtual machine set up and ready for use with Virt-Manager.
 
+12. **Install Virtio**
 
-
+    ![Screenshot from 2024-09-07 13-21-33](https://github.com/user-attachments/assets/8d380e73-878b-4b3d-a601-9a4609346aff)

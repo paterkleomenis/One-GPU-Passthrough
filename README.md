@@ -296,5 +296,47 @@ By following these steps, you'll have your virtual machine set up and ready for 
       ```bash
       sudo chmod +x /etc/libvirt/hooks/qemu.d/{VMName}/prepare/begin/start.sh
       ```
-        
-  
+
+      - Making the start script
+       ```bash
+      sudo mkdir -p /etc/libvirt/hooks/qemu.d/{VMName}/release/end/revert.sh
+       ```
+
+       ```bash
+       cd /etc/libvirt/hooks/qemu.d/{VMName}/release/end/revert.sh
+       ```
+
+       ```bash
+       sudo nano revert.sh
+       ```
+
+      ## End Script ##
+
+      ```bash
+      echo "efi-framebuffer.0" > /sys/bus/platform/drivers/efi-framebuffer/bind
+      set -x
+
+      # Re-Bind GPU to Nvidia Driver
+      virsh nodedev-reattach pci_0000_01_00_0
+      virsh nodedev-reattach pci_0000_01_00_1
+
+      sleep 2
+
+      # Reload nvidia modules
+      modprobe -r vfio-pci
+      modprobe -r nvidia
+      modprobe -r nvidia_modeset
+      modprobe -r nvidia_uvm
+      modprobe -r nvidia_drm
+
+      # Rebind VT consoles
+      echo 1 > /sys/class/vtconsole/vtcon0/bind
+      # Some machines might have more than 1 virtual console. Add a line for each corresponding VTConsole
+      #echo 1 > /sys/class/vtconsole/vtcon1/bind
+
+      nvidia-xconfig --query-gpu-info > /dev/null 2>&1
+      echo "efi-framebuffer.0" > /sys/bus/platform/drivers/efi-framebuffer/bind
+
+      # Restart Display Manager
+      systemctl start display-manager.service
+      ```

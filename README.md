@@ -189,22 +189,27 @@ newgrp libvirt
    - **Create a new virtual disk**: Set the disk size (e.g., 40 GB) and format (e.g., QCOW2).
    - Click **“Forward”**.
 
-6. **Set Up Networking**
+6. **Give Name**
+  - **Name your VM**
+  - **Check the box "Customize configuration before install"**
+
+7. **Set Up Networking**
    - Choose the network configuration:
      - **Default**: Use NAT to share the host’s IP address.
      - **Bridged**: If you need a separate IP address for the VM.
    - Click **“Forward”**.
 
-7. **Customize Configuration (Optional)**
+8. **Customize Configuration (Optional)**
    - Check **“Customize configuration before install”** to adjust additional settings.
    - Click **“Finish”** to open the configuration window.
+   - Select in the Firmware **UEFI**. 
 
-8. **Configure GPU Passthrough (Optional)**
+9. **Configure GPU Passthrough (Optional)**
    - In the configuration window, go to the **Firmware** section and select **UEFI (OVMF)** if you are installing an OS that supports UEFI.
    - Go to the **Add Hardware** section, select **PCI Host Device**, and choose your GPU from the list.
    - Apply the changes.
 
-9. **Begin Installation**
+10. **Begin Installation**
     - Click **“Begin Installation”** to start the virtual machine and follow the installation prompts to set up your operating system.
 
 By following these steps, you'll have your virtual machine set up and ready for use with Virt-Manager.

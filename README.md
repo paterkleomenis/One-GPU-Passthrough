@@ -244,3 +244,16 @@ By following these steps, you'll have your virtual machine set up and ready for 
     - Change Address to **All interfaces**
    
     ![Screenshot from 2024-09-07 13-38-43](https://github.com/user-attachments/assets/24d333cf-5e6a-4eae-a72e-d90476301d91)
+
+16. **Setting Up Libvirt hooks**
+    - Create /etc/libvirt/hooks
+      ```bash
+      sudo mkdir -p /etc/libvirt/hooks
+      ```
+    - Run the following command to install the hook manager and make it executable
+      ```bash
+      sudo wget 'https://raw.githubusercontent.com/PassthroughPOST/VFIO-Tools/master/libvirt_hooks/qemu' \ -O /etc/libvirt/hooks/qemu
+      sudo chmod +x /etc/libvirt/hooks/qemu
+
+      ```
+  

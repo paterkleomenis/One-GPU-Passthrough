@@ -137,7 +137,7 @@ To enable IOMMU, you first need to identify which bootloader your system uses. C
 3. **Verify IOMMU Activation**:
    - After rebooting, check if IOMMU is enabled:
      ```bash
-     dmesg | grep -e DMAR -e IOMMU
+     lsmod | grep kvm
      ```
 
 

@@ -199,17 +199,19 @@ newgrp libvirt
      - **Bridged**: If you need a separate IP address for the VM.
    - Click **“Forward”**.
 
-8. **Customize Configuration (Optional)**
+8. **Customize Configuration**
    - Check **“Customize configuration before install”** to adjust additional settings.
    - Click **“Finish”** to open the configuration window.
-   - Select in the Firmware **UEFI**. 
-
-9. **Configure GPU Passthrough (Optional)**
    - In the configuration window, go to the **Firmware** section and select **UEFI (OVMF)** if you are installing an OS that supports UEFI.
-   - Go to the **Add Hardware** section, select **PCI Host Device**, and choose your GPU from the list.
-   - Apply the changes.
 
-10. **Begin Installation**
+9. **Add Virtio**
+    Download Virtio ISO from here **https://github.com/virtio-win/virtio-win-pkg-scripts/blob/master/README.md**
+    - Click **Add Hardware**.
+    - Click **Storage**.
+    - Click **Select or create custom storage**
+    - Click **Manage**
+
+11. **Begin Installation**
     - Click **“Begin Installation”** to start the virtual machine and follow the installation prompts to set up your operating system.
 
 By following these steps, you'll have your virtual machine set up and ready for use with Virt-Manager.

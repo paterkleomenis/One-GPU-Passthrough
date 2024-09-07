@@ -1,4 +1,4 @@
-# GPU Passthrough on Linux
+![image](https://github.com/user-attachments/assets/381196c0-0d5f-4077-9a25-75d96cda97eb)# GPU Passthrough on Linux
 
 ## Overview
 
@@ -234,7 +234,15 @@ By following these steps, you'll have your virtual machine set up and ready for 
     - Click **Enable XML editting**.
 
 14. **Change the XML For SATA**
-    - Change **bus="sata"** to **bus="virtio"**
-    - Change **type="drive"** to **type="pci"**
+    - Change **bus="sata"** to **bus="virtio"**.
+    - Change **type="drive"** to **type="pci"**.
       
 ![Screenshot from 2024-09-07 13-31-49](https://github.com/user-attachments/assets/3107a02a-c9c8-472f-abcb-26596c231bd8)
+
+
+15. **Set VNC**
+    - Go to **Display Spice**.
+    - Change Type to **VNC server**.
+    - Change Address to **All interfaces**
+   
+    ![Screenshot from 2024-09-07 13-38-43](https://github.com/user-attachments/assets/24d333cf-5e6a-4eae-a72e-d90476301d91)

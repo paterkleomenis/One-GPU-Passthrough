@@ -278,6 +278,22 @@ By following these steps, you'll have your virtual machine set up and ready for 
       ## Start Script ##
 
       ```bash
+      # Helpful to read output when debugging 
+      set -x
+
+      # Stop display manager
+      systemctl stop display-manager.service
+      ## Uncomment the following line if you use GDM
+      killall gdm-x-session
+      sudo rmmod nvidia_drm
+      sudo rmmod nvidia_uvm
+      sudo rmmod nvidia_modeset
+      sudo rmmod nvidia
+
+      # Unbind VTconsoles
+      echo 0 > /sys/class/vtconsole/vtcon0/bind
+      echo 0 > /sys/class/vtconsole/vtcon1/bind
+
       # Unbind EFI-Framebuffer
       echo efi-framebuffer.0 > /sys/bus/platform/drivers/efi-framebuffer/unbind
 

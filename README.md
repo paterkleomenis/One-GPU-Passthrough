@@ -329,7 +329,7 @@ By following these steps, you'll have your virtual machine set up and ready for 
       sudo chmod +x /etc/libvirt/hooks/qemu.d/{VMName}/prepare/begin/start.sh
       ```
 
-      - Making the start script
+      - Making the end script
        ```bash
       sudo mkdir -p /etc/libvirt/hooks/qemu.d/{VMName}/release/end/revert.sh
        ```

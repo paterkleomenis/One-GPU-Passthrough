@@ -342,7 +342,7 @@ By following these steps, you'll have your virtual machine set up and ready for 
        sudo nano revert.sh
        ```
        ```bash
-       sudo chmod +x /etc/libvirt/hooks/qemu.d/{VMName}/release/end/revert.sh
+       /etc/libvirt/hooks/qemu.d/{VMName}/release/end/revert.sh
 
       ## End Script ##
 

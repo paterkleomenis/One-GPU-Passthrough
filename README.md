@@ -165,6 +165,19 @@ sudo systemctl start libvirtd
 sudo usermod -aG libvirt $(whoami)
 newgrp libvirt
 ```
+- **List all networks:**:
+```bash
+sudo virsh net-list --all
+```
+- **Start the default network:**:
+```bassh
+sudo virsh net-start default
+```
+- **Autostart the network (optional but recommended):**:
+```bash
+sudo virsh net-autostart default
+```
+
 ### Setting Up the Virtual Machine Using Virt-Manager
 
 1. **Open Virt-Manager**

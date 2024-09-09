@@ -75,11 +75,11 @@ To enable IOMMU, you first need to identify which bootloader your system uses. C
    - Add the appropriate IOMMU settings to the `GRUB_CMDLINE_LINUX_DEFAULT` line:
      - For **Intel** CPUs:
        ```bash
-       GRUB_CMDLINE_LINUX_DEFAULT="quiet splash .... intel_iommu=on"
+       GRUB_CMDLINE_LINUX_DEFAULT="quiet splash .... intel_iommu=on iommu=pt"
        ```
      - For **AMD** CPUs:
        ```bash
-       GRUB_CMDLINE_LINUX_DEFAULT="quiet splash .... amd_iommu=on"
+       GRUB_CMDLINE_LINUX_DEFAULT="quiet splash .... amd_iommu=on iommu=pt"
        ```
 
 2. **Update GRUB**:

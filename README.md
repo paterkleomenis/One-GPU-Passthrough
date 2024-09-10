@@ -347,7 +347,7 @@ By following these steps, you'll have your virtual machine set up and ready for 
        ```
 
        ```bash
-       sudo nano /etc/libvirt/hooks/qemu.d/win10-vm1-singlegpu/release/end/revert.sh
+       sudo nano /etc/libvirt/hooks/qemu.d/{VMName}/release/end/revert.sh
        ```
        
 
@@ -385,7 +385,7 @@ By following these steps, you'll have your virtual machine set up and ready for 
       
       **Save and make it Executable**
       ```bash
-      sudo chmod +x /etc/libvirt/hooks/qemu.d/win10-vm1-singlegpu/release/end/revert.sh
+      sudo chmod +x /etc/libvirt/hooks/qemu.d/{VMName}/release/end/revert.sh
       ```
 
       

@@ -245,6 +245,10 @@ By following these steps, you'll have your virtual machine set up and ready for 
     ![Screenshot from 2024-09-07 13-23-56](https://github.com/user-attachments/assets/bd481f9c-6d0a-44ff-9b72-628e7a1f859b)
 
     - Shut Down the System.
+    - Remove the Drivers we added above
+![Screenshot from 2024-09-10 10-43-34](https://github.com/user-attachments/assets/985c67e2-84ac-4e10-83bc-138ef88b9508)
+
+      
       
 13. **Enable XML**
     - Go to **Edit**.

@@ -245,17 +245,22 @@ By following these steps, you'll have your virtual machine set up and ready for 
     ![Screenshot from 2024-09-07 13-23-56](https://github.com/user-attachments/assets/bd481f9c-6d0a-44ff-9b72-628e7a1f859b)
 
     - Shut Down the System.
+   
     - Remove the Drivers we added above
-![Screenshot from 2024-09-10 10-43-34](https://github.com/user-attachments/assets/b91f43dd-b4c3-4cd5-8ccc-ad88bc353f71)
+
+    ![Screenshot from 2024-09-10 10-43-34](https://github.com/user-attachments/assets/b91f43dd-b4c3-4cd5-8ccc-ad88bc353f71)
+      
+    
+
 
       
       
-13. **Enable XML**
+12. **Enable XML**
     - Go to **Edit**.
     - Click **Preferences**.
     - Click **Enable XML editting**.
 
-14. **Change the XML For SATA**
+13. **Change the XML For SATA**
     - Change **bus="sata"** to **bus="virtio"**.
     - Change **type="drive"** to **type="pci"**.
       

@@ -364,7 +364,7 @@ By following these steps, you'll have your virtual machine set up and ready for 
 
       sleep 2
 
-      # Reload nvidia modules
+      # Reload  modules
       modprobe -r vfio-pci
       modprobe -r nvidia
       modprobe -r nvidia_modeset

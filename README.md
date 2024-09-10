@@ -246,7 +246,7 @@ By following these steps, you'll have your virtual machine set up and ready for 
 
     - Shut Down the System.
     - Remove the Drivers we added above
-![Screenshot from 2024-09-10 10-43-34](https://github.com/user-attachments/assets/985c67e2-84ac-4e10-83bc-138ef88b9508)
+![Screenshot from 2024-09-10 10-43-34](https://github.com/user-attachments/assets/b91f43dd-b4c3-4cd5-8ccc-ad88bc353f71)
 
       
       

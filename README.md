@@ -299,11 +299,7 @@ By following these steps, you'll have your virtual machine set up and ready for 
         ```
         
         ```bash
-        cd /etc/libvirt/hooks/qemu.d/{VM Name}/prepare/begin
-        ```
-
-        ```bash
-        sudo nano start.sh
+        sudo nano /etc/libvirt/hooks/qemu.d/{VM Name}/prepare/begin/start.sh
         ```
 
       ## Start Script ##
@@ -351,14 +347,9 @@ By following these steps, you'll have your virtual machine set up and ready for 
        ```
 
        ```bash
-       cd /etc/libvirt/hooks/qemu.d/{VMName}/release/end/revert.sh
+       sudo nano /etc/libvirt/hooks/qemu.d/win10-vm1-singlegpu/release/end/revert.sh
        ```
-
-       ```bash
-       sudo nano revert.sh
-       ```
-       ```bash
-       /etc/libvirt/hooks/qemu.d/{VMName}/release/end/revert.sh
+       
 
       ## End Script ##
 
@@ -367,7 +358,7 @@ By following these steps, you'll have your virtual machine set up and ready for 
       echo "efi-framebuffer.0" > /sys/bus/platform/drivers/efi-framebuffer/bind
       set -x
 
-      # Re-Bind GPU to Nvidia Driver
+      # Re-Bind GPU to Driver
       virsh nodedev-reattach pci_0000_01_00_0
       virsh nodedev-reattach pci_0000_01_00_1
 
@@ -391,7 +382,13 @@ By following these steps, you'll have your virtual machine set up and ready for 
       # Restart Display Manager
       systemctl start display-manager.service
       ```
+      
+      **Save and make it Executable**
+      ```bash
+      sudo chmod +x /etc/libvirt/hooks/qemu.d/win10-vm1-singlegpu/release/end/revert.sh
+      ```
 
+      
 **Customize the filess**
 - Change the marked numbers with yours
 ![Screenshot from 2024-09-07 14-25-11](https://github.com/user-attachments/assets/fec73398-66f0-4bdf-b426-07d69b311375)

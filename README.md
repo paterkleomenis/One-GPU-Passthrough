@@ -218,6 +218,13 @@ sudo virsh net-autostart default
 9. **Add Virtio**
     Download Virtio ISO from here **https://github.com/virtio-win/virtio-win-pkg-scripts/blob/master/README.md**
     - Click **Add Hardware**.
+    - Click **Storage**
+    - Click **Create a disk image for the virtual machine**
+    - Click **Add 0.1GiB** (It doesn't matter how much size you add because we will delete it after the installation)
+    - Click **Bus type**
+    - Select **VirtIO**
+    - Click **Finish**
+    - Click **Add Hardware**.
     - Click **Storage**.
     - Click **Select or create custom storage**.
     - Click **Manage** and then select Virtio ISO file.

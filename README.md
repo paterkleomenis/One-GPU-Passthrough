@@ -36,7 +36,7 @@ To begin setting up GPU passthrough:
 ### 1. **Check Hardware Compatibility**
    - **Virtualization Support**: Verify that your CPU supports virtualization (Intel VT-x/AMD-V). You can check this by running:
      ```bash
-     egrep -o '(vmx|svm)' /proc/cpuinfo
+     grep -E -o '(vmx|svm)' /proc/cpuinfo
      ```
      If the output includes `vmx` (for Intel) or `svm` (for AMD), your CPU supports virtualization.
    - **IOMMU Support**: Your motherboard and CPU must support IOMMU (Intel VT-d/AMD-Vi). To verify, run the following command:

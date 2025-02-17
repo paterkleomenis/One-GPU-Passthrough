@@ -1,4 +1,4 @@
-  GNU nano 8.1                                      /etc/libvirt/hooks/qemu.d/win10/release/end/revert.sh                                                
+#!/bin/bash
 echo "efi-framebuffer.0" > /sys/bus/platform/drivers/efi-framebuffer/bind
 set -x
 
@@ -8,7 +8,7 @@ virsh nodedev-reattach pci_0000_01_00_1
 
 sleep 2
 
-# Reload nvidia modules
+# Reload modules
 modprobe -r vfio-pci
 modprobe  nvidia
 modprobe  nvidia_modeset

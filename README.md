@@ -41,7 +41,7 @@ To begin setting up GPU passthrough:
      If the output includes `vmx` (for Intel) or `svm` (for AMD), your CPU supports virtualization.
    - **IOMMU Support**: Your motherboard and CPU must support IOMMU (Intel VT-d/AMD-Vi). To verify, run the following command:
      ```bash
-     dmesg | grep -e DMAR -e IOMMU
+     sudo dmesg | grep -e DMAR -e IOMMU
      ```
      If IOMMU is supported, you should see relevant messages in the output.
 
@@ -56,13 +56,9 @@ To begin setting up GPU passthrough:
 To enable IOMMU, you first need to identify which bootloader your system uses. Common bootloaders include GRUB and systemd-boot. Follow the steps below to determine your bootloader and configure IOMMU accordingly.
 
 #### Determine Your Bootloader
-   - **Check GRUB**:
+   - **Check Bootloader**:
      ```bash
-     sudo test -e /boot/grub/grub.cfg && echo "GRUB detected"
-     ```
-   - **Check systemd-boot**:
-     ```bash
-     sudo test -e /boot/loader/loader.conf && echo "systemd-boot detected"
+     sudo test -e /boot/grub/grub.cfg && echo -e "\nGRUB detected" || sudo test -e /boot/loader/loader.conf && echo -e "\nsystemd-boot detected"
      ```
 
 #### Enable IOMMU in GRUB
@@ -72,14 +68,14 @@ To enable IOMMU, you first need to identify which bootloader your system uses. C
      ```bash
      sudo nano /etc/default/grub
      ```
-   - Add the appropriate IOMMU settings to the `GRUB_CMDLINE_LINUX_DEFAULT` line:
+   - Add the appropriate IOMMU settings to the end of the `GRUB_CMDLINE_LINUX_DEFAULT` line:
      - For **Intel** CPUs:
        ```bash
-       GRUB_CMDLINE_LINUX_DEFAULT="quiet splash .... intel_iommu=on iommu=pt"
+       GRUB_CMDLINE_LINUX_DEFAULT=".... intel_iommu=on iommu=pt"
        ```
      - For **AMD** CPUs:
        ```bash
-       GRUB_CMDLINE_LINUX_DEFAULT="quiet splash .... amd_iommu=on iommu=pt"
+       GRUB_CMDLINE_LINUX_DEFAULT=".... amd_iommu=on iommu=pt"
        ```
 
 2. **Update GRUB**:
@@ -101,12 +97,6 @@ To enable IOMMU, you first need to identify which bootloader your system uses. C
    - Apply the changes by rebooting:
      ```bash
      sudo reboot
-     ```
-
-4. **Verify IOMMU Activation**:
-   - After rebooting, check if IOMMU is enabled:
-     ```bash
-     dmesg | grep -e DMAR -e IOMMU
      ```
 
 #### Enable IOMMU in systemd-boot
@@ -132,53 +122,58 @@ To enable IOMMU, you first need to identify which bootloader your system uses. C
      sudo reboot
      ```
 
-3. **Verify IOMMU Activation**:
-   - After rebooting, check if IOMMU is enabled:
-     ```bash
-     lsmod | grep kvm
-     ```
+#### Verify IOMMU Activation
+
+After rebooting, check if IOMMU is enabled:
+```bash
+sudo dmesg | grep -e DMAR -e IOMMU
+```
+You should see a message similar to this:
+```bash
+DMAR: IOMMU enabled
+```
 
 
 ### 3. **Configure the Host System**
 
 #### Install Necessary Packages
-- **For Ubuntu/Debian**:
+- **For Ubuntu/Debian:**
    ```bash
    sudo apt install qemu-kvm libvirt-clients libvirt-daemon-system virt-manager ovmf
-- **For Arch Linux:**:
+- **For Arch Linux:**
    ```bash
-  sudo pacman -S qemu virt-manager virt-viewer dnsmasq vde2 bridge-utils openbsd-netcat ebtables iptables libguestfs
-- **For Fedora:**:
+  sudo pacman -S qemu-full virt-manager virt-viewer dnsmasq vde2 bridge-utils openbsd-netcat ebtables iptables libguestfs
+- **For Fedora:**
    ```bash
    sudo dnf install qemu-kvm libvirt virt-manager virt-install ovmf
   ```
-   
+
 #### Setting Up the Virtual Machine
 
-- **Enable and Start libvirt Services**:
+- **Enable and start libvirt services:**
 ```bash
 sudo systemctl enable libvirtd
 sudo systemctl start libvirtd
 ```
-- **Verify that Your User Is in the libvirt Group Ensure your user is in the libvirt group to have the necessary permissions to manage VMs:**:
+- **Ensure your user is in the libvirt group to have the necessary permissions to manage VMs:**
 ```bash
 sudo usermod -aG libvirt $(whoami)
 newgrp libvirt
 ```
-- **List all networks:**:
+- **List all networks:**
 ```bash
 sudo virsh net-list --all
 ```
-- **Start the default network:**:
-```bassh
+- **Start the default network:**
+```bash
 sudo virsh net-start default
 ```
-- **Autostart the network (optional but recommended):**:
+- **Autostart the network (optional but recommended):**
 ```bash
 sudo virsh net-autostart default
 ```
 
-### Setting Up the Virtual Machine Using Virt-Manager
+#### Setting Up the Virtual Machine Using Virt-Manager
 
 1. **Open Virt-Manager**
    - Launch **Virt-Manager** from your application menu or by searching for it.
@@ -189,7 +184,8 @@ sudo virsh net-autostart default
 3. **Choose Installation Media**
    - Select **“Local install media (ISO image or CDROM)”** if you have an ISO file.
    - Click **“Forward”**.
-   - Browse to and select your ISO file, then click **“Forward”**. (if it doesn't go forward **unselect** the Automatically detect from the installation media/source and write it on your own)
+   - Browse to and select your ISO file, then click **“Forward”**.
+     - If it doesn't go forward **unselect** the "Automatically detect from the installation media/source" and write it on your own.
 
 4. **Allocate Resources**
    - **Memory**: Allocate RAM (e.g., 8 GB).
@@ -201,35 +197,41 @@ sudo virsh net-autostart default
    - Click **“Forward”**.
 
 6. **Give Name**
-  - **Name your VM**
-  - **Check the box "Customize configuration before install"**
+  - **Name your VM**.
+  - **Check the box "Customize configuration before install"**.
 
 7. **Set Up Networking**
    - Choose the network configuration:
      - **Default**: Use NAT to share the host’s IP address.
      - **Bridged**: If you need a separate IP address for the VM.
-   - Click **“Forward”**.
+   - Click **“Finish”**.
 
 8. **Customize Configuration**
-   - Check **“Customize configuration before install”** to adjust additional settings.
-   - Click **“Finish”** to open the configuration window.
-   - In the configuration window, go to the **Firmware** section and select **UEFI (OVMF)** if you are installing an OS that supports UEFI.
+    - In the configuration window, go to the **Firmware** section and select **UEFI (OVMF)** if your computer supports UEFI.
+      - Select the configuration of the architecture you want to use (e.g. x64 for 64-bit or ia32 for 32-bit).
+      - Choose the option that does **NOT** contain secure boot.
+    - Click **“Apply”**.
 
 9. **Add Virtio**
-    Download Virtio ISO from here **https://github.com/virtio-win/virtio-win-pkg-scripts/blob/master/README.md**
+    - Download Virtio ISO from here **https://github.com/virtio-win/virtio-win-pkg-scripts/blob/master/README.md**.
     - Click **Add Hardware**.
-    - Click **Storage**
-    - Click **Create a disk image for the virtual machine**
-    - Click **Add 0.1GiB** (It doesn't matter how much size you add because we will delete it after the installation)
-    - Click **Bus type**
-    - Select **VirtIO**
-    - Click **Finish**
+    - Click **Storage**.
+    - Click **Create a disk image for the virtual machine**.
+    - Change the value to **0.1GiB** (It doesn't matter how much size you add because we will delete it after the installation).
+    - Click **Bus type**.
+    - Select **VirtIO**.
+    - Click **Finish**.
     - Click **Add Hardware**.
     - Click **Storage**.
     - Click **Select or create custom storage**.
     - Click **Manage** and then select Virtio ISO file.
     - Select in Device Type **CDROM device** and in BUS Type **SATA**.
     - Click **Finish**.
+
+10. **Change Boot Options**
+    - Click **Boot Options**.
+    - Check **SATA CDROM 1**.
+    - Click **Apply**.
 
 11. **Begin Installation**
     - Click **“Begin Installation”** to start the virtual machine and follow the installation prompts to set up your operating system.
@@ -242,40 +244,34 @@ By following these steps, you'll have your virtual machine set up and ready for 
 
     - Select this Disk and then execute and install this file.
 
-    ![Screenshot from 2024-09-07 13-23-56](https://github.com/user-attachments/assets/bd481f9c-6d0a-44ff-9b72-628e7a1f859b)
+      ![Screenshot from 2024-09-07 13-23-56](https://github.com/user-attachments/assets/bd481f9c-6d0a-44ff-9b72-628e7a1f859b)
 
     - Shut Down the System.
-   
+
     - Remove the Drivers we added above
 
-    ![Screenshot from 2024-09-10 10-43-34](https://github.com/user-attachments/assets/b91f43dd-b4c3-4cd5-8ccc-ad88bc353f71)
-      
-    
+      ![Screenshot from 2024-09-10 10-43-34](https://github.com/user-attachments/assets/b91f43dd-b4c3-4cd5-8ccc-ad88bc353f71)
 
-
-      
-      
-12. **Enable XML**
+13. **Enable XML**
+    - Go back to the Virtual Machine Manager.
     - Go to **Edit**.
     - Click **Preferences**.
-    - Click **Enable XML editting**.
+    - Click **Enable XML editing**.
 
-13. **Change the XML For SATA**
+14. **Change the XML For SATA**
     - Change **bus="sata"** to **bus="virtio"**.
     - Change **type="drive"** to **type="pci"**.
-      
-![Screenshot from 2024-09-07 13-31-49](https://github.com/user-attachments/assets/3107a02a-c9c8-472f-abcb-26596c231bd8)
 
+![Screenshot from 2024-09-07 13-31-49](https://github.com/user-attachments/assets/3107a02a-c9c8-472f-abcb-26596c231bd8)
 
 15. **Set VNC (optional)**
     - Go to **Display Spice**.
     - Change Type to **VNC server**.
     - Change Address to **All interfaces**
-   
+
     ![Screenshot from 2024-09-07 13-38-43](https://github.com/user-attachments/assets/24d333cf-5e6a-4eae-a72e-d90476301d91)
 
-
-17. **Setting Up Libvirt hooks**
+16. **Setting Up libvirt hooks**
     - Create /etc/libvirt/hooks
       ```bash
       sudo mkdir -p /etc/libvirt/hooks
@@ -287,32 +283,36 @@ By following these steps, you'll have your virtual machine set up and ready for 
       sudo chmod +x /etc/libvirt/hooks/qemu
 
       ```
-    - Restarting the libvirtd
+    - Restart libvirtd
       ```bash
       sudo service libvirtd restart
                 OR
       sudo systemctl restart libvirtd
       ```
-      - Making the start script
-        ```bash
-        sudo mkdir -p /etc/libvirt/hooks/qemu.d/{VM Name}/prepare/begin 
-        ```
-        
-        ```bash
-        sudo nano /etc/libvirt/hooks/qemu.d/{VM Name}/prepare/begin/start.sh
-        ```
 
-      ## Start Script ##
+
+      ## Start Script
+
+      - Make the start script:
+      ```bash
+      sudo mkdir -p /etc/libvirt/hooks/qemu.d/{VM Name}/prepare/begin
+      ```
+
+      ```bash
+      sudo nano /etc/libvirt/hooks/qemu.d/{VM Name}/prepare/begin/start.sh
+      ```
+
+       - Add the following script:
 
       ```bash
       #!/bin/bash
-      # Helpful to read output when debugging 
+      # Helpful to read output when debugging
       set -x
 
       # Stop display manager
       systemctl stop display-manager.service
-      ## Uncomment the following line if you use GDM
-      killall gdm-x-session
+      # Uncomment the following line if you use GDM
+      #killall gdm-x-session
       sudo rmmod nvidia_drm
       sudo rmmod nvidia_uvm
       sudo rmmod nvidia_modeset
@@ -328,30 +328,34 @@ By following these steps, you'll have your virtual machine set up and ready for 
       # Avoid a Race condition by waiting 2 seconds. This can be calibrated to be shorter or longer if required for your system
       sleep 2
 
-      # Unbind the GPU from display driver 
-      virsh nodedev-detach pci_0000_01_00_0  
+      # Unbind the GPU from display driver
+      virsh nodedev-detach pci_0000_01_00_0
       virsh nodedev-detach pci_0000_01_00_1
 
       # Load VFIO Kernel Module
       modprobe vfio-pci
       ```
 
-      **Save and make it Executable**
+      - **Save and make it Executable**:
       ```bash
       sudo chmod +x /etc/libvirt/hooks/qemu.d/{VMName}/prepare/begin/start.sh
       ```
 
-      - Making the end script
+
+
+
+      ## End Script
+
+      - Make the end script:
        ```bash
-      sudo mkdir -p /etc/libvirt/hooks/qemu.d/{VMName}/release/end/revert.sh
+      sudo mkdir -p /etc/libvirt/hooks/qemu.d/{VMName}/release/end
        ```
 
        ```bash
        sudo nano /etc/libvirt/hooks/qemu.d/{VMName}/release/end/revert.sh
        ```
-       
 
-      ## End Script ##
+       - Add the following script:
 
       ```bash
       #!/bin/bash
@@ -364,12 +368,12 @@ By following these steps, you'll have your virtual machine set up and ready for 
 
       sleep 2
 
-      # Reload  modules
+      # Reload modules
       modprobe -r vfio-pci
-      modprobe -r nvidia
-      modprobe -r nvidia_modeset
-      modprobe -r nvidia_uvm
-      modprobe -r nvidia_drm
+      modprobe nvidia
+      modprobe nvidia_modeset
+      modprobe nvidia_uvm
+      modprobe nvidia_drm
 
       # Rebind VT consoles
       echo 1 > /sys/class/vtconsole/vtcon0/bind
@@ -382,14 +386,14 @@ By following these steps, you'll have your virtual machine set up and ready for 
       # Restart Display Manager
       systemctl start display-manager.service
       ```
-      
-      **Save and make it Executable**
+
+      - **Save and make it Executable**:
       ```bash
       sudo chmod +x /etc/libvirt/hooks/qemu.d/{VMName}/release/end/revert.sh
       ```
 
-      
-**Customize the filess**
+
+17. **Customize the files**
 - Change the marked numbers with yours
 ![Screenshot from 2024-09-07 14-25-11](https://github.com/user-attachments/assets/fec73398-66f0-4bdf-b426-07d69b311375)
 
@@ -397,22 +401,28 @@ By following these steps, you'll have your virtual machine set up and ready for 
   ```bash
   lspci
   ```
-- In my case those are the numbers (You probaly have different numbers or even more that two PCI's)
-  
-      
+  In my case those are the numbers (You probably have different numbers or even more that two PCIs)
+
+
 ![Screenshot from 2024-09-07 14-30-04](https://github.com/user-attachments/assets/2bb46be2-23eb-4229-a65d-873e5e37aa9b)
 
 
-- The same goes for the modules. If you have amd or intel find those modules for your system and replace them.
+- Same goes for the modules. If you have **AMD** or **Intel** find those modules for your system and replace them.
 
 ![Screenshot from 2024-09-07 14-34-03](https://github.com/user-attachments/assets/0852a2ad-6d45-4fc3-a631-613780cd8fc9)
 
-**Add the Graphics Card to the VM**
-- Click on Add Hardware and select your **Graphics Card**
+18. **Add the Hardware to the VM**
+- Click on Add Hardware and select **PCI Host Device**.
+- Select everything related to your **Graphics Card**.
+- Click Finish.
+- Click on Add Hardware and select **USB Host Device**.
+- Select your **Mouse** and **Keyboard**.
+- Click Finish.
 
 ![Screenshot from 2024-09-07 14-41-43](https://github.com/user-attachments/assets/460c694d-7604-4fdc-9da7-d8f72b4f2b79)
 
-**Single GPU Passthrough**
+19. **Single GPU Passthrough**
 
-- When start your VM you will not have any output because your graphics card will be connected to the VM.
-- If you have windows in your VM you can just wait until they drivers will be automatically downloaded or you can connect from an other device to your VM with VNC.
+- When you start your VM you will probably not have any output because your graphics card drivers are not installed yet.
+- You can just wait until the drivers are automatically downloaded. If after a while you still have no output, connect from an other device to your VM with VNC and install them manually.
+- After the drivers are installed and you have output, you can remove **Display VNC / Display Spice** and **Video QXL / Video Bochs** and use the GPU directly.

@@ -1,12 +1,11 @@
-  GNU nano 8.1                                                          /etc/libvirt/hooks/qemu.d/win10/prepare/begin/start.sh                                                                    
 #!/bin/bash
 # Helpful to read output when debugging
 set -x
 
 # Stop display manager
 systemctl stop display-manager.service
-## Uncomment the following line if you use GDM
-killall gdm-x-session
+# Uncomment the following line if you use GDM
+#killall gdm-x-session
 sudo rmmod nvidia_drm
 sudo rmmod nvidia_uvm
 sudo rmmod nvidia_modeset
@@ -25,9 +24,6 @@ sleep 2
 # Unbind the GPU from display driver
 virsh nodedev-detach pci_0000_01_00_0
 virsh nodedev-detach pci_0000_01_00_1
-virsh nodedev-detach pci_0000_00_1f_3
 
 # Load VFIO Kernel Module
 modprobe vfio-pci
-
-

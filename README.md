@@ -179,7 +179,8 @@ sudo virsh net-autostart default
    - Launch **Virt-Manager** from your application menu or by searching for it.
 
 2. **Create a New Virtual Machine**
-   - Click the **“Create a new virtual machine”** button.
+   - Click the **“Create a new virtual machine”** button.  
+     ![image](https://github.com/user-attachments/assets/f64918cc-613c-4769-a97a-55d77bdaa339)
 
 3. **Choose Installation Media**
    - Select **“Local install media (ISO image or CDROM)”** if you have an ISO file.

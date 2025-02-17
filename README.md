@@ -426,4 +426,7 @@ By following these steps, you'll have your virtual machine set up and ready for 
 
 - When you start your VM you will probably not have any output because your graphics card drivers are not installed yet.
 - You can just wait until the drivers are automatically downloaded. If after a while you still have no output, connect from an other device to your VM with VNC and install them manually.
-- After the drivers are installed and you have output, you can remove **Display VNC / Display Spice** and **Video QXL / Video Bochs** and use the GPU directly.
+- After the drivers are installed and you have output, you can remove **Display VNC / Display Spice** and **Video QXL / Video Bochs** and use the GPU directly.  
+
+ ![remove](https://github.com/user-attachments/assets/281d0499-4d43-4339-8219-bc7a0f53e410)
+
